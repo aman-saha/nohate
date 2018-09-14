@@ -1,6 +1,7 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var mustacheExpress = require('mustache-express');
+var io = require('socket.io')(http);
 const body_parser = require('body-parser');
 
 //bodyparser
@@ -17,9 +18,20 @@ app.get('/', function(req, res){
   res.render('index');
 });
 
-app.post('/login', (req,res) => {
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('chat message',function(msg){
+    console.log('message is :' + msg);
+    socket.broadcast.emit('chat message',msg);
+  });
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  }); 
+});
+
+app.post('/send_message', (req,res) => {
   res.json({
-    name:req.body.name
+    message:req.body.message
   });
   console.log(req.body);
 })
