@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Hekko world from <span id="my-name">{{name}}</span></h1>
+    <form method="POST" itemid=>
+        Enter Name : 
+        <input type="text" id="name">
+        <button type="button" id="submit">Submit</button>
+    </form>
+    
+    <script>
+        $(document).ready(function(){
+            $("#submit").click(function(){
+                var name = $("#name").val();
+                $.ajax({
+                    type : 'POST',
+                    url : '/login',
+                    data : {name : name},
+                    success(data){
+                        console.log(data);
+                        document.getElementById('my-name').innerHTML = data.name;
+                    }
+                });
+                console.log(name);
+            });
+        });
+    </script>
+</body>
+</html>
