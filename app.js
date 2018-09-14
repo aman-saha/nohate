@@ -2,6 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var mustacheExpress = require('mustache-express');
 var io = require('socket.io')(http);
+const fs = require('fs');
 const body_parser = require('body-parser');
 
 //bodyparser
@@ -21,20 +22,31 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('chat message',function(msg){
+    fs.writeFile('backend/out.txt','id\comment_text',(err)=>{
+      if(err)
+        throw err;
+      });
+    
+    let outMsg = '1\' + msg;
+    fs.appendFile('backend/out.txt',outMsg,(err)=>{
+      if(err)
+        throw err;
+      console.log('Message Saved');
+    });
     console.log('message is :' + msg);
-    socket.broadcast.emit('chat message',msg);
+    io.sockets.emit('chat message',msg);
   });
   socket.on('disconnect', function(){
     console.log('user disconnected');
   }); 
 });
 
-app.post('/send_message', (req,res) => {
+/*app.post('/send_message', (req,res) => {
   res.json({
     message:req.body.message
   });
   console.log(req.body);
-})
+})*/
 
 http.listen(3000, () => {
   console.log('listening on *:3000');
