@@ -1,2 +1,0 @@
-id,comment_text
-1,hello from 1
