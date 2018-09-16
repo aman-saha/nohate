@@ -56,6 +56,7 @@ def hello():
         preds[:,i] = m.predict_proba(test_x.multiply(r))[:,1]
 
     print (preds[0])
+    threshold = 0.40
     xhatex = {
         "toxic" : preds[0][0],
         "severe_toxic" : preds[0][1],
@@ -65,7 +66,7 @@ def hello():
         "identity_hate" : preds[0][5]
     }
     res = max(xhatex.items(), key=operator.itemgetter(1))[0]
-    if(xhatex[res]<0.40):
+    if(xhatex[res]<threshold):
         return ('hatespeech')
     else:
         return ('allow speech')
