@@ -4,8 +4,23 @@ var mustacheExpress = require('mustache-express');
 var io = require('socket.io')(http);
 var request = require('request');
 const fs = require('fs');
-var csvWriter = require('csv-write-stream')
+var csvWriter = require('csv-write-stream');
 const body_parser = require('body-parser');
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'root',
+  database : 'messages'
+});
+
+connection.connect(function(err){
+  if(!err) {
+      console.log("Database is connected ... \n\n");  
+  } else {
+      console.log("Error connecting database ... \n\n");  
+  }
+});
 
 //bodyparser
 app.use(body_parser.json());
@@ -17,6 +32,7 @@ app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
 app.set('views', __dirname + '/templates');
 
+//Rendering the index.html file
 app.get('/', function(req, res){
   res.render('index');
 });

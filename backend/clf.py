@@ -66,7 +66,8 @@ def hello():
         "identity_hate" : preds[0][5]
     }
     res = max(xhatex.items(), key=operator.itemgetter(1))[0]
+    # 0 - hatespeech, 1- nothatespeech
     if(xhatex[res]<threshold):
-        return ('hatespeech')
+        return (0)
     else:
-        return ('allow speech')
+        return (1)
