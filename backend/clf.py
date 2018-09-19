@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 from flask import Flask
+from flask import jsonify
 app = Flask(__name__)
 
 import pandas as pd, numpy as np
@@ -9,9 +10,12 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import re, string
 import csv
 import operator
+from random import randint
+
 
 @app.route("/classify",methods=['POST'])
 def hello():
+    return jsonify(randint(0,1))
     #return "Hello World from Python!"
     train = pd.read_csv('data/train.csv')
     test = pd.read_csv('out.csv')

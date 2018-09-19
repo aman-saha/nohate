@@ -50,11 +50,30 @@ io.on('connection', function(socket){
       'http://127.0.0.1:5000/classify',
       function (error, response, body) {
           if (!error && response.statusCode == 200) {
-              console.log(body)
+            var val = Number(body);
+            console.log(val);
+            if(val == 1){
+              let query = "INSERT INTO data(message,type) VALUES('msg','nothatespeech')";
+              connection.query(query,function(err,result){
+                if(err)
+                  throw err;
+                console.log("Data Inserted");
+              });
+              io.sockets.emit('chat message',msg);
+            }
+            else{
+              let query = "INSERT INTO data(message,type) VALUES('msg','hatespeech')";
+              connection.query(query,function(err,result){
+                if(err)
+                  throw err;
+                  console.log("Data inserted");
+              });
+            }
+            
           }
       }
   );
-    io.sockets.emit('chat message',msg);
+    
   });
   socket.on('disconnect', function(){
     console.log('user disconnected');
