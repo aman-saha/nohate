@@ -15,7 +15,8 @@ from random import randint
 
 @app.route("/classify",methods=['POST'])
 def hello():
-    return jsonify(randint(0,1))
+    print('hello');
+    #return jsonify(randint(0,1))
     #return "Hello World from Python!"
     train = pd.read_csv('data/train.csv')
     test = pd.read_csv('out.csv')
@@ -72,6 +73,6 @@ def hello():
     res = max(xhatex.items(), key=operator.itemgetter(1))[0]
     # 0 - hatespeech, 1- nothatespeech
     if(xhatex[res]<threshold):
-        return (0)
+        return ("0")
     else:
-        return (1)
+        return ("1")

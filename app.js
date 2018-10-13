@@ -7,13 +7,16 @@ const fs = require('fs');
 var csvWriter = require('csv-write-stream');
 const body_parser = require('body-parser');
 var mysql      = require('mysql');
+
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : 'root',
   database : 'messages'
 });
-
+var func = require('./functions.js');
+var a = func.myFunc1();
+console.log(a);
 connection.connect(function(err){
   if(!err) {
       console.log("Database is connected ... \n\n");  
