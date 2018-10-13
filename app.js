@@ -7,10 +7,11 @@ const fs = require('fs');
 var csvWriter = require('csv-write-stream');
 const body_parser = require('body-parser');
 var mysql      = require('mysql');
+const _mysql_password = process.env.MYSQL_PASSWORD || 'root';
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'root',
+  password : _mysql_password,
   database : 'messages'
 });
 
