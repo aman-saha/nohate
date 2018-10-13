@@ -14,7 +14,9 @@ var connection = mysql.createConnection({
   password : _mysql_password,
   database : 'messages'
 });
-
+var func = require('./functions.js');
+var a = func.myFunc1();
+console.log(a);
 connection.connect(function(err){
   if(!err) {
       console.log("Database is connected ... \n\n");  
