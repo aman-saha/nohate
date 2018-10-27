@@ -16,7 +16,7 @@ from random import randint
 @app.route("/classify",methods=['POST'])
 def hello():
     print('hello');
-    #return jsonify(randint(0,1))
+    return jsonify(randint(0,1))
     #return "Hello World from Python!"
     train = pd.read_csv('data/train.csv')
     test = pd.read_csv('out.csv')

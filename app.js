@@ -56,7 +56,7 @@ io.on('connection', function(socket){
             var val = Number(body);
             console.log(val);
             if(val == 1){
-              let query = "INSERT INTO data(message,type) VALUES('msg','nothatespeech')";
+              let query = "INSERT INTO data(message,type) VALUES(msg,'nothatespeech')";
               connection.query(query,function(err,result){
                 if(err)
                   throw err;
